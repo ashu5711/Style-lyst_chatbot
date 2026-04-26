@@ -169,7 +169,7 @@ const Chatbot = () => {
                             </div>
                             <p className="stylist-reasoning">{msg.outfitRecommendation.stylistReasoning}</p>
                             
-                            <div className="outfit-grid">
+                            <div className="outfit-carousel">
                               {Object.values(msg.outfitRecommendation.items).map((item, idx) => (
                                 <div key={idx} className="outfit-item">
                                   <div className="outfit-item-img-wrapper">

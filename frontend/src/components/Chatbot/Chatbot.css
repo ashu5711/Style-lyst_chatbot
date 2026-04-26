@@ -359,20 +359,32 @@
   line-height: 1.4;
 }
 
-.outfit-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.outfit-carousel {
+  display: flex;
+  overflow-x: auto;
   gap: 12px;
   margin-bottom: 16px;
+  padding-bottom: 8px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.outfit-carousel::-webkit-scrollbar {
+  display: none;
 }
 
 .outfit-item {
+  flex: 0 0 130px;
+  scroll-snap-align: start;
   background: #fff;
   border: 1px solid #eee;
   border-radius: 8px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
 .outfit-item-img-wrapper {
@@ -438,11 +450,20 @@
   border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, transform 0.2s;
+  animation: pulse-btn 2s infinite;
 }
 
 .shop-look-btn:hover {
   background: #1a7eb3;
+  transform: scale(1.02);
+  animation: none;
+}
+
+@keyframes pulse-btn {
+  0% { box-shadow: 0 0 0 0 rgba(32, 157, 215, 0.4); }
+  70% { box-shadow: 0 0 0 6px rgba(32, 157, 215, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(32, 157, 215, 0); }
 }
 
 /* Settings Overlay */
