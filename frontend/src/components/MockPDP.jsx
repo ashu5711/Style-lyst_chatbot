@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Search, ShoppingCart, User, Menu, ChevronRight, Star, StarHalf } from 'lucide-react';
 import { pdpData } from '../data/pdpData';
 import './MockPDP.css';
@@ -29,7 +30,9 @@ const MockPDP = () => {
       <header className="pdp-header">
         <div className="header-left">
           <Menu className="icon" />
-          <div className="logo">JCPenney</div>
+          <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <div className="logo">JCPenney</div>
+          </Link>
         </div>
         <div className="header-search">
           <input type="text" placeholder="Search products..." />
