@@ -8,7 +8,14 @@ pnpm-debug.log*
 
 # Dependency directories
 node_modules/
+venv/
+backend/venv/
+__pycache__/
+*.pyc
 
+# Database
+chroma_data/
+backend/chroma_data/
 # Vite build output
 dist/
 dist-ssr/
