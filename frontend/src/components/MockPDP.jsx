@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, ShoppingCart, User, Menu, ChevronRight, Star, StarHalf } from 'lucide-react';
+import { Search, ShoppingCart, User, Menu, ChevronRight, Star, StarHalf, Camera } from 'lucide-react';
 import { pdpData } from '../data/pdpData';
 import './MockPDP.css';
 
@@ -36,9 +36,14 @@ const MockPDP = () => {
         </div>
         <div className="header-search">
           <input type="text" placeholder="Search products..." />
-          <Search className="search-icon" />
+          <div className="search-actions">
+            <Search className="search-icon" />
+          </div>
         </div>
         <div className="header-right">
+          <Link to="/matchmap" className="header-item" style={{textDecoration: 'none', color: 'inherit'}}>
+            <Camera className="icon" style={{marginRight: '5px'}} /> MatchMap
+          </Link>
           <div className="header-item"><User className="icon" /> Sign In</div>
           <div className="header-item"><ShoppingCart className="icon" /> Cart</div>
         </div>

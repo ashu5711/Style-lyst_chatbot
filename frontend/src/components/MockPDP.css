@@ -31,23 +31,37 @@
   display: flex;
   align-items: center;
   flex: 1;
-  max-width: 500px;
+  max-width: 600px;
   position: relative;
-  margin: 0 2rem;
 }
 
 .header-search input {
   width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
+  padding: 10px 40px 10px 20px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  background-color: #f5f5f5;
+  transition: all 0.3s;
+}
+
+.header-search input:focus {
+  outline: none;
+  background-color: #fff;
+  border-color: #209dd7;
+  box-shadow: 0 0 0 2px rgba(32, 157, 215, 0.2);
+}
+
+.search-actions {
+  position: absolute;
+  right: 15px;
+  display: flex;
+  align-items: center;
 }
 
 .search-icon {
-  position: absolute;
-  right: 12px;
-  color: #666;
+  color: #888;
+  cursor: pointer;
 }
 
 .header-right {

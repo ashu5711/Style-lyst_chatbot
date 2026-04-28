@@ -151,3 +151,71 @@ export const sendToGemini = async (text, imageBase64DataUri) => {
     throw error;
   }
 };
+
+export const analyzeInspirationImage = async (imageBase64DataUri) => {
+  const apiKey = localStorage.getItem('gemini_api_key');
+  if (!apiKey) {
+    throw new Error("No API Key provided. Please set your Gemini API key in settings.");
+  }
+
+  const base64Data = imageBase64DataUri.split(',')[1];
+  const mimeType = imageBase64DataUri.split(';')[0].split(':')[1] || "image/jpeg";
+
+  const SYSTEM_PROMPT = `You are an AI Object Detector for a fashion application.
+Your task is to analyze the uploaded inspiration image and identify the distinct clothing items and accessories in it (e.g., Shirt, Pants, Shoes, Watch, Sunglasses).
+For each item you identify, you must provide its approximate center (x, y) coordinates as a percentage (from 0 to 100) from the top-left of the image. For example, x=50, y=50 is exactly the center of the image. x=10, y=10 is near top-left.
+You must also provide a CONCISE, highly descriptive visual keyword for the item (e.g. "maroon long sleeve button up shirt") to be used in a vector search.
+
+You MUST return your response as a valid JSON object wrapped in markdown \`\`\`json ... \`\`\` tags.
+The JSON must adhere exactly to this schema:
+{
+  "items": [
+    {
+      "id": "string (unique random identifier)",
+      "name": "string (concise descriptive visual keywords)",
+      "x_percent": number (0-100),
+      "y_percent": number (0-100)
+    }
+  ]
+}`;
+
+  const requestBody = {
+    contents: [
+      {
+        parts: [
+          { text: SYSTEM_PROMPT },
+          { inlineData: { mimeType: mimeType, data: base64Data } }
+        ]
+      }
+    ]
+  };
+
+  try {
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(requestBody)
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`Gemini API Error: ${errorData.error?.message || response.statusText}`);
+    }
+
+    const data = await response.json();
+    const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+
+    const jsonMatch = rawText.match(/```json\s*(\{[\s\S]*?\})\s*```/);
+    if (jsonMatch && jsonMatch[1]) {
+      return JSON.parse(jsonMatch[1]);
+    } else if (rawText.trim().startsWith('{') && rawText.trim().endsWith('}')) {
+      return JSON.parse(rawText.trim());
+    }
+    
+    throw new Error("Failed to parse JSON from AI response.");
+
+  } catch (error) {
+    console.error("AI Analysis Error:", error);
+    throw error;
+  }
+};

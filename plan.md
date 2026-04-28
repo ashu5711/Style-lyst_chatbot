@@ -47,13 +47,21 @@ Part 8: AI Connectivity
 - [x] Test connectivity with a simple visual query (e.g., "What color is this item?") to ensure the AI responds correctly.
 
 Part 9: Agentic "Complete the Look" Logic
-- [ ] Extend the AI backend call to include the user's uploaded image, user's text query, and the current PDP context.
-- [ ] Prompt the AI to act as a high-end boutique personal stylist.
-- [ ] Require the AI to return Structured Outputs (JSON) containing the chat response and a curated "Complete the Look" outfit (Top + Bottom + Shoes + Accessory).
-- [ ] Test the AI's reasoning, contextual logic (e.g., "summer wedding"), and JSON output format thoroughly.
+- [x] Extend the AI backend call to include the user's uploaded image, user's text query, and the current PDP context.
+- [x] Prompt the AI to act as a high-end boutique personal stylist.
+- [x] Require the AI to return Structured Outputs (JSON) containing the chat response and a curated "Complete the Look" outfit (Top + Bottom + Shoes + Accessory).
+- [x] Test the AI's reasoning, contextual logic (e.g., "summer wedding"), and JSON output format thoroughly.
 
 Part 10: Final UI Polish & Rich Media Integration
 - [x] Update the chatbot UI to parse the LLM's Structured Output.
 - [x] Render the outfit recommendations in beautifully styled, horizontal scrollable carousels.
 - [x] Include high-quality JCPenney product images, clear pricing, and functional "Shop the Look" buttons within the chat.
 - [x] Ensure the AI chat can refresh the widget automatically based on its Structured Outputs, completing the MVP vision.
+
+Phase 2: MatchMap (Inspiration Engine) - COMPLETED
+- [x] Implemented Python/FastAPI backend with ChromaDB vector store.
+- [x] Indexed 16k dataset using OpenAI CLIP (clip-ViT-B-32) for visual embeddings.
+- [x] Replaced mock data with real visually-matched catalog images via cross-modal text-to-image search.
+- [x] Created React Router setup with MockHome and MockPDP routing.
+- [x] Built the MatchMap visual search UI allowing users to upload inspiration images and get object-detected bounding boxes (hotspots) via Gemini Vision.
+- [x] Hooked MatchMap hotspots to the CLIP vector search to retrieve similar visual products.

@@ -1,0 +1,181 @@
+import React, { useState, useRef } from 'react';
+import { Camera, Upload, Loader2, Sparkles, X, ChevronLeft } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { analyzeInspirationImage } from '../../services/aiService';
+import './MatchMap.css';
+
+const MatchMap = () => {
+  const [imageSrc, setImageSrc] = useState(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [identifiedItems, setIdentifiedItems] = useState([]);
+  const [selectedItemId, setSelectedItemId] = useState(null);
+  
+  const [isSearching, setIsSearching] = useState(false);
+  const [similarProducts, setSimilarProducts] = useState([]);
+
+  const fileInputRef = useRef(null);
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = async () => {
+        const base64 = reader.result;
+        setImageSrc(base64);
+        setIdentifiedItems([]);
+        setSimilarProducts([]);
+        await performAnalysis(base64);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const performAnalysis = async (base64) => {
+    setIsAnalyzing(true);
+    try {
+      const result = await analyzeInspirationImage(base64);
+      if (result && result.items && result.items.length > 0) {
+        setIdentifiedItems(result.items);
+        // Auto-select the first item
+        handleDotClick(result.items[0]);
+      }
+    } catch (error) {
+      console.error("Analysis failed:", error);
+      alert("Failed to analyze image. Ensure your Gemini API Key is set in the Chatbot settings.");
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
+
+  const handleDotClick = async (item) => {
+    setSelectedItemId(item.id);
+    setIsSearching(true);
+    setSimilarProducts([]);
+    
+    try {
+      const response = await fetch('http://localhost:8000/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: item.name, n_results: 8 })
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        if (data.status === 'success') {
+          setSimilarProducts(data.results);
+        }
+      }
+    } catch (error) {
+      console.error("Search failed:", error);
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
+  return (
+    <div className="matchmap-page">
+      <header className="matchmap-header">
+        <Link to="/" className="back-link">
+          <ChevronLeft size={24} /> Back to JCPenney
+        </Link>
+        <div className="logo-container">
+          <Camera className="brand-icon" />
+          <h1>MatchMap</h1>
+        </div>
+      </header>
+
+      {!imageSrc ? (
+        <div className="upload-container">
+          <div className="upload-box" onClick={() => fileInputRef.current.click()}>
+            <Upload size={48} className="upload-icon" />
+            <h2>Upload an Inspiration Photo</h2>
+            <p>Upload a photo of an outfit you love, and we'll find similar items.</p>
+            <button className="upload-btn">Choose Image</button>
+            <input 
+              type="file" 
+              accept="image/*" 
+              ref={fileInputRef} 
+              style={{ display: 'none' }} 
+              onChange={handleImageUpload}
+            />
+          </div>
+        </div>
+      ) : (
+        <div className="matchmap-workspace">
+          {/* Left Pane: Inspiration Image */}
+          <div className="inspiration-pane">
+            <div className="image-wrapper">
+              <img src={imageSrc} alt="Inspiration" className="inspiration-img" />
+              
+              {isAnalyzing && (
+                <div className="analyzing-overlay">
+                  <Loader2 className="spinner" size={48} />
+                  <p>Detecting garments...</p>
+                </div>
+              )}
+
+              {/* Render Hotspots */}
+              {!isAnalyzing && identifiedItems.map((item) => (
+                <div 
+                  key={item.id}
+                  className={`hotspot ${selectedItemId === item.id ? 'active' : ''}`}
+                  style={{ top: `${item.y_percent}%`, left: `${item.x_percent}%` }}
+                  onClick={() => handleDotClick(item)}
+                  title={item.name}
+                >
+                  <div className="hotspot-inner"></div>
+                </div>
+              ))}
+            </div>
+            
+            <button className="reset-btn" onClick={() => setImageSrc(null)}>
+              <X size={16} /> Try another image
+            </button>
+          </div>
+
+          {/* Right Pane: Similar Products */}
+          <div className="results-pane">
+            <div className="results-header">
+              <h2>Similar Products</h2>
+              {selectedItemId && (
+                <p className="selected-item-name">
+                  Matches for: <strong>{identifiedItems.find(i => i.id === selectedItemId)?.name}</strong>
+                </p>
+              )}
+            </div>
+
+            {isSearching ? (
+              <div className="loading-results">
+                <Loader2 className="spinner" size={32} />
+                <p>Searching catalog...</p>
+              </div>
+            ) : (
+              <div className="similar-products-grid">
+                {similarProducts.map((prod, idx) => (
+                  <div key={idx} className="similar-product-card">
+                    <div className="img-container">
+                      <img src={prod.imageUrl} alt={prod.description || prod.name || 'Product'} />
+                    </div>
+                    <div className="prod-details">
+                      <span className="prod-brand">JCPenney</span>
+                      <span className="prod-name">{prod.folder.replace('_', ' ')}</span>
+                      <span className="prod-price">$24.99</span>
+                    </div>
+                  </div>
+                ))}
+                
+                {!isSearching && similarProducts.length === 0 && selectedItemId && (
+                  <div className="no-results">
+                    <p>No similar items found in the database.</p>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default MatchMap;
