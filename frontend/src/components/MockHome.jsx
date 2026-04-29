@@ -1,58 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Search, ShoppingCart, User, Menu, Camera } from 'lucide-react';
+import Header from './Header/Header';
 import './MockHome.css';
-import { pdpData } from '../data/pdpData'; // Using this just to grab the vest image for the "Recently Viewed" section
+import { pdpData } from '../data/pdpData';
 
 const MockHome = () => {
   const vestImage = pdpData.images[0].url;
 
   return (
     <div className="mock-home">
-      {/* Header */}
-      <header className="pdp-header">
-        <div className="header-left">
-          <Menu className="icon" />
-          <Link to="/" className="logo-link">
-            <div className="logo">JCPenney</div>
-          </Link>
-        </div>
-        <div className="header-search">
-          <input type="text" placeholder="Search products..." />
-          <div className="search-actions">
-            <Search className="search-icon" />
-          </div>
-        </div>
-        <div className="header-right">
-          <Link to="/matchmap" className="header-item" style={{textDecoration: 'none', color: 'inherit'}}>
-            <Camera className="icon" style={{marginRight: '5px'}} /> MatchMap
-          </Link>
-          <div className="header-item"><User className="icon" /> Sign In</div>
-          <div className="header-item"><ShoppingCart className="icon" /> Cart</div>
-        </div>
-      </header>
-
-      {/* Secondary Navigation */}
-      <nav className="secondary-nav">
-        <ul>
-          <li>Valentine's Day</li>
-          <li>Women</li>
-          <li>Men</li>
-          <li>Kids</li>
-          <li>Home</li>
-          <li>Shoes</li>
-          <li>Jewelry</li>
-          <li>Sephora</li>
-          <li className="clearance-tab">Clearance</li>
-        </ul>
-      </nav>
+      <Header />
 
       {/* Hero Banner */}
       <section className="hero-banner">
+        <div className="hero-banner-bg" />
         <div className="hero-content">
+          <p className="hero-eyebrow">Limited Time Offer</p>
           <h1>Spring Style Event</h1>
-          <p>Up to 50% off select apparel & shoes for the family.</p>
-          <button className="shop-now-btn">Shop Now</button>
+          <p className="hero-sub">Up to 50% off select apparel & shoes for the family.</p>
+          <div className="hero-actions">
+            <button className="shop-now-btn">Shop Now</button>
+            <button className="shop-now-btn shop-now-btn--ghost">View All Deals</button>
+          </div>
         </div>
       </section>
 
@@ -80,7 +49,7 @@ const MockHome = () => {
           </div>
         </section>
 
-        {/* Recently Viewed (Links to PDP) */}
+        {/* Recently Viewed */}
         <section className="recently-viewed">
           <h2>Recently Viewed</h2>
           <div className="products-scroll">
@@ -97,8 +66,7 @@ const MockHome = () => {
                 </div>
               </div>
             </Link>
-            
-            {/* Dummy cards */}
+
             <div className="product-card dummy">
               <div className="product-image-wrapper">
                 <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&q=80" alt="Short Sleeve Cardigan" />
@@ -128,9 +96,6 @@ const MockHome = () => {
         </section>
       </main>
 
-      <footer className="mock-footer">
-        <p>© 2026 Penney IP LLC. All Rights Reserved.</p>
-      </footer>
     </div>
   );
 };

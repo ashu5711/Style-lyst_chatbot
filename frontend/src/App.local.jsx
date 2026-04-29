@@ -2,10 +2,8 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import MockHome from './components/MockHome'
 import MockPDP from './components/MockPDP'
-import StyleSeek from './components/StyleSeek/StyleSeek'
-import StyleLyst from './components/StyleLyst/StyleLyst'
-import Chatbot from './components/Chatbot/Chatbot.aws'
-import Footer from './components/Footer/Footer'
+import MatchMap from './components/MatchMap/MatchMap'
+import Chatbot from './components/Chatbot/Chatbot'
 import './App.css'
 
 function App() {
@@ -13,11 +11,9 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<MockHome />} />
-        <Route path="/styleseek" element={<StyleSeek />} />
-        <Route path="/style-lyst" element={<StyleLyst />} />
+        <Route path="/matchmap" element={<MatchMap />} />
         <Route path="/p/:productName/:productId" element={<MockPDP />} />
       </Routes>
-      <Footer />
       <Chatbot />
     </Router>
   )

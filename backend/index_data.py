@@ -5,7 +5,7 @@ from PIL import Image
 from tqdm import tqdm
 
 # Paths
-DATASET_DIR = "/Users/ashutoshshankar/Downloads/archive (2)"
+DATASET_DIR = "/Users/sa6/Downloads/style-lyst dataset"
 CHROMA_DB_DIR = "./chroma_data"
 COLLECTION_NAME = "clothing_items_visual"  # New collection name so we don't mix with text embeddings
 

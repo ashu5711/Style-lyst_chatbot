@@ -1,0 +1,65 @@
+{
+  "id": "ppr5008658749",
+  "name": "a.n.a Womens Crew Neck Sleeveless Vest",
+  "brand": "A.N.A",
+  "category": "Shirts + Tops > Vests",
+  "occasion": ["Casual", "Wear To Work"],
+  "badges": ["ONLY_AT_JCP", "NEW", "PETITE_AVAILABLE"],
+  "pricing": {
+    "salePrice": 14.99,
+    "originalPrice": 30.00,
+    "discount": "50% OFF",
+    "promoCode": "STYLE25"
+  },
+  "description": "This a.n.a women's sleeveless knit vest will be your stylish new wardrobe basic you can pair with anything. Made from ribbed stretch-cotton, this fitted sleeveless top has button-loop closures along the front and delicate lettuce trims. Wear it with tailored shorts, pants or jeans.",
+  "attributes": {
+    "closureType": "Loop & Button",
+    "fit": "Fitted",
+    "neckline": "Crew Neck",
+    "sleeveLength": "Sleeveless",
+    "apparelLength": "21.75 Inches - Back, 22.25 Inches - Front",
+    "fiberContent": "95% Cotton, 5% Spandex",
+    "fabricDescription": "Rib Knit",
+    "care": "Tumble Dry, Machine Wash",
+    "material": "Cotton Blend",
+    "countryOfOrigin": "Imported"
+  },
+  "colors": [
+    {"name": "Faded Denim", "family": "Blue"},
+    {"name": "Moon Rock", "family": "Beige"},
+    {"name": "White", "family": "White"},
+    {"name": "Black", "family": "Black"}
+  ],
+  "sizeRanges": {
+    "misses": {
+      "sizes": [
+        {"size": "X-Small", "numericSize": "0-2", "bust": "32.5-33.5", "waist": "25.5-26.5", "hip": "35.5-36.5", "inStock": true},
+        {"size": "Small", "numericSize": "4-6", "bust": "34.5-35.5", "waist": "27.5-28.5", "hip": "37.5-38.5", "inStock": true},
+        {"size": "Medium", "numericSize": "8-10", "bust": "36.5-37.5", "waist": "29.5-30.5", "hip": "39.5-40.5", "inStock": true},
+        {"size": "Large", "numericSize": "12-14", "bust": "39-40.5", "waist": "32-33.5", "hip": "42-43.5", "inStock": true},
+        {"size": "X-Large", "numericSize": "16-18", "bust": "42-44", "waist": "35-37", "hip": "45-47", "inStock": true},
+        {"size": "XX-Large", "numericSize": "20", "bust": "46", "waist": "39", "hip": "49", "inStock": true}
+      ]
+    },
+    "petites": {
+      "sizes": [
+        {"size": "Petite X-Small", "numericSize": "0P-2P", "bust": "32-33", "waist": "25-26", "hip": "35-36", "inStock": false},
+        {"size": "Petite Small", "numericSize": "4P-6P", "bust": "34-35", "waist": "27-28", "hip": "37-38", "inStock": false},
+        {"size": "Petite Medium", "numericSize": "8P-10P", "bust": "36-37", "waist": "29-30", "hip": "39-40", "inStock": true},
+        {"size": "Petite Large", "numericSize": "12P-14P", "bust": "38.5-40", "waist": "31.5-33", "hip": "41.5-43", "inStock": true},
+        {"size": "Petite X-Large", "numericSize": "16P-18P", "bust": "41.5-43", "waist": "34.5-36", "hip": "44.5-46", "inStock": true},
+        {"size": "Petite XX-Large", "numericSize": "20P", "inStock": true}
+      ]
+    }
+  },
+  "shipping": {
+    "sameDayPickUp": true,
+    "shipToStore": true,
+    "shipToHome": true,
+    "freeShipping": true
+  },
+  "returns": "Easy returns with full, common sense returns policy.",
+  "maxQuantity": 8,
+  "rating": 4.75,
+  "reviewCount": 60
+}
