@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 import { X, Image as ImageIcon, Send, Sparkles, ChevronLeft, Camera, Search, MessageCircle, Lock } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 import { sendToGemini } from '../../services/aiService.aws';
 import { sendChatRequest } from '../../services/mockApi';
 import './Chatbot.css';
@@ -272,7 +273,11 @@ const Chatbot = () => {
               {msg.attachedImage && (
                 <img src={msg.attachedImage} alt="User upload" className="message-image" />
               )}
-              {msg.text && <p className="message-text">{msg.text}</p>}
+              {msg.text && (
+                <div className="message-text markdown-body">
+                  <ReactMarkdown>{msg.text}</ReactMarkdown>
+                </div>
+              )}
 
               {msg.outfitRecommendation && (
                 <div className="outfit-recommendation-container">
