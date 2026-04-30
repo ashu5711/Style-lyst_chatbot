@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Upload, Loader2, X, Camera } from 'lucide-react';
 import { analyzeInspirationImage } from '../../services/aiService.aws';
 import Header from '../Header/Header';
@@ -14,6 +14,10 @@ const StyleSeek = () => {
   
   const [isSearching, setIsSearching] = useState(false);
   const [similarProducts, setSimilarProducts] = useState([]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const fileInputRef = useRef(null);
   const cameraInputRef = useRef(null);
